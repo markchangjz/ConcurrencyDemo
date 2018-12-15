@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 		
 //		usingConcurrentOperationQueues()
 //		usingConcurrentOperationQueues2()
-		usingSerialOperationQueues()
+//		usingSerialOperationQueues()
 	}
 
 	@IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -119,6 +119,7 @@ extension ViewController {
 	// Dispatch Queue - Serial (GCD)
 	func usingSerialDispatchQueues() {
 		let serialQueue = DispatchQueue(label: "imagesQueue")
+//		let serialQueue = DispatchQueue(label: "imagesQueue", qos: .default)
 		
 		serialQueue.async {
 			let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
