@@ -48,7 +48,8 @@ class ViewController: UIViewController {
 //		usingSerialDispatchQueues()
 		
 //		usingConcurrentOperationQueues()
-		usingConcurrentOperationQueues2()
+//		usingConcurrentOperationQueues2()
+		usingSerialOperationQueues()
 	}
 
 	@IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -228,6 +229,48 @@ extension ViewController {
 			print("Operation 4 completed")
 		}
 		concurrentQueue.addOperation(operation4)
+	}
+	
+	// Operation Queue - Serial (high level abstraction)
+	func usingSerialOperationQueues() {
+		let serialQueue = OperationQueue()
+		
+		// 1
+		let operation1 = BlockOperation {
+			let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
+			OperationQueue.main.addOperation {
+				self.imageView1.image = img1
+			}
+		}
+		
+		// 2
+		let operation2 = BlockOperation {
+			let img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
+			OperationQueue.main.addOperation {
+				self.imageView2.image = img2
+			}
+		}
+		
+		// 3
+		let operation3 = BlockOperation {
+			let img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
+			OperationQueue.main.addOperation {
+				self.imageView3.image = img3
+			}
+		}
+		
+		// 4
+		let operation4 = BlockOperation {
+			let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
+			OperationQueue.main.addOperation {
+				self.imageView4.image = img4
+			}
+		}
+
+		operation2.addDependency(operation1)
+		operation3.addDependency(operation2)
+		operation4.addDependency(operation3)
+		serialQueue.addOperations([operation1, operation2, operation3, operation4], waitUntilFinished: false)
 	}
 }
 
