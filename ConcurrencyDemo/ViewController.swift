@@ -47,7 +47,8 @@ class ViewController: UIViewController {
 //		usingConcurrentDispatchQueues()
 //		usingSerialDispatchQueues()
 		
-		usingConcurrentOperationQueues()
+//		usingConcurrentOperationQueues()
+		usingConcurrentOperationQueues2()
 	}
 
 	@IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -170,6 +171,63 @@ extension ViewController {
 				self.imageView4.image = img4
 			}
 		}
+	}
+	
+	// Operation Queue - Concurrent
+	func usingConcurrentOperationQueues2() {
+		let concurrentQueue = OperationQueue()
+		
+		// 1
+		let operation1 = BlockOperation {
+			let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
+			OperationQueue.main.addOperation {
+				self.imageView1.image = img1
+			}
+		}
+		operation1.queuePriority = .normal
+		operation1.completionBlock = {
+			print("Operation 1 completed")
+		}
+		concurrentQueue.addOperation(operation1)
+		
+		// 2
+		let operation2 = BlockOperation {
+			let img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
+			OperationQueue.main.addOperation {
+				self.imageView2.image = img2
+			}
+		}
+		operation2.queuePriority = .normal
+		operation2.completionBlock = {
+			print("Operation 2 completed")
+		}
+		concurrentQueue.addOperation(operation2)
+		
+		// 3
+		let operation3 = BlockOperation {
+			let img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
+			OperationQueue.main.addOperation {
+				self.imageView3.image = img3
+			}
+		}
+		operation3.queuePriority = .normal
+		operation3.completionBlock = {
+			print("Operation 3 completed")
+		}
+		concurrentQueue.addOperation(operation3)
+		
+		// 4
+		let operation4 = BlockOperation {
+			let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
+			OperationQueue.main.addOperation {
+				self.imageView4.image = img4
+			}
+		}
+		operation4.queuePriority = .normal
+		operation4.completionBlock = {
+			print("Operation 4 completed")
+		}
+		concurrentQueue.addOperation(operation4)
 	}
 }
 
