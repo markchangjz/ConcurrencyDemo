@@ -6,6 +6,14 @@
 //  Copyright © 2015 Hossam Ghareeb. All rights reserved.
 //
 
+/*
+iOS Concurrency_ Getting Started with NSOperation and Dispatch Queues _ AppCoda
+https://www.appcoda.com/ios-concurrency/
+
+NSOperation - NSHipster
+https://nshipster.com/nsoperation/
+*/
+
 import UIKit
 
 let imageURLs = ["http://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg", "http://adriatic-lines.com/wp-content/uploads/2015/04/canal-of-Venice.jpg", "http://adriatic-lines.com/wp-content/uploads/2015/04/canal-of-Venice.jpg", "http://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg"]
