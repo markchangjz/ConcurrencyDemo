@@ -23,11 +23,19 @@ let imageURLs = ["http://www.planetware.com/photos-large/F/france-paris-eiffel-t
 
 class Downloader {
     
-    class func downloadImageWithURL(url:String) -> UIImage! {
+    class func downloadImageWithURL(url: String) -> UIImage! {
         
 		let data = NSData(contentsOf: NSURL(string: url)! as URL)
 		return UIImage(data: data! as Data)
     }
+	
+	class func downloadImageWithURL(url: String, completion: (_ image: UIImage?) -> Void) {
+		print("downloading")
+		let data = NSData(contentsOf: NSURL(string: url)! as URL)
+		let image = UIImage(data: data! as Data)
+		
+		completion(image)
+	}
 }
 
 class ViewController: UIViewController {
@@ -64,6 +72,9 @@ class ViewController: UIViewController {
 //		usingConcurrentOperationQueues()
 //		usingConcurrentOperationQueues2()
 //		usingSerialOperationQueues()
+		
+		// Group
+//		usingGroupConcurrentDispatchQueues()
 	}
 
 	@IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -344,6 +355,60 @@ extension ViewController {
 		operation3.addDependency(operation2)
 		operation4.addDependency(operation3)
 		serialQueue.addOperations([operation1, operation2, operation3, operation4], waitUntilFinished: false)
+	}
+	
+	// MARK: - Group Dispatch Queue - Concurrent (GCD)
+	func usingGroupConcurrentDispatchQueues() {
+		let concurrentQueue = DispatchQueue(label: "imagesQueue", qos: .default, attributes: .concurrent)
+		let group = DispatchGroup()
+		
+		var image1 = UIImage()
+		var image2 = UIImage()
+		var image3 = UIImage()
+		var image4 = UIImage()
+		
+		concurrentQueue.async(group: group) {
+//			group.enter()
+			Downloader.downloadImageWithURL(url: imageURLs[0]) { (image) in
+				image1 = image!
+				print("downloaded image 1")
+//				group.leave()
+			}
+		}
+		
+		concurrentQueue.async(group: group) {
+//			group.enter()
+			Downloader.downloadImageWithURL(url: imageURLs[1]) { (image) in
+				image2 = image!
+				print("downloaded image 2")
+//				group.leave()
+			}
+		}
+		
+		concurrentQueue.async(group: group) {
+//			group.enter()
+			Downloader.downloadImageWithURL(url: imageURLs[2]) { (image) in
+				image3 = image!
+				print("downloaded image 3")
+//				group.leave()
+			}
+		}
+		
+		concurrentQueue.async(group: group) {
+//			group.enter()
+			Downloader.downloadImageWithURL(url: imageURLs[3]) { (image) in
+				image4 = image!
+				print("downloaded image 4")
+//				group.leave()
+			}
+		}
+		
+		group.notify(queue: DispatchQueue.main) {
+			self.imageView1.image = image1
+			self.imageView2.image = image2
+			self.imageView3.image = image3
+			self.imageView4.image = image4
+		}
 	}
 }
 

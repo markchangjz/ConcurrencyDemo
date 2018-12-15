@@ -95,6 +95,7 @@
 				TargetAttributes = {
 					DA02838C1BF90DA900AA4DAC = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = Y53W55T72H;
 					};
 				};
 			};
@@ -267,9 +268,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Y53W55T72H;
 				INFOPLIST_FILE = ConcurrencyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = hossam.ConcurrencyDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.ConcurrencyDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
@@ -279,9 +281,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Y53W55T72H;
 				INFOPLIST_FILE = ConcurrencyDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = hossam.ConcurrencyDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = tw.com.markchang.ConcurrencyDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 			};
