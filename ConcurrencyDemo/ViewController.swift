@@ -73,7 +73,7 @@ extension ViewController {
 		self.imageView4.image = img4
 	}
 	
-	// Dispatch Queue - Concurrent
+	// Dispatch Queue - Concurrent (GCD)
 	func usingConcurrentDispatchQueues() {
 		let concurrentQueue = DispatchQueue.global(qos: .default)
 //		let concurrentQueue = DispatchQueue(label: "imagesQueue", qos: .default, attributes: .concurrent)
@@ -107,7 +107,7 @@ extension ViewController {
 		}
 	}
 	
-	// Dispatch Queue - Serial
+	// Dispatch Queue - Serial (GCD)
 	func usingSerialDispatchQueues() {
 		let serialQueue = DispatchQueue(label: "imagesQueue")
 		
@@ -140,7 +140,7 @@ extension ViewController {
 		}
 	}
 	
-	// Operation Queue - Concurrent
+	// Operation Queue - Concurrent (high level abstraction)
 	func usingConcurrentOperationQueues() {
 		let concurrentQueue = OperationQueue()
 		
@@ -173,7 +173,7 @@ extension ViewController {
 		}
 	}
 	
-	// Operation Queue - Concurrent
+	// Operation Queue - Concurrent (high level abstraction)
 	func usingConcurrentOperationQueues2() {
 		let concurrentQueue = OperationQueue()
 		
