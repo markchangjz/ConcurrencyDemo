@@ -69,6 +69,7 @@ extension ViewController {
 		self.imageView4.image = img4
 	}
 	
+	// Dispatch Queue - Concurrent
 	func usingConcurrentDispatchQueues() {
 		let concurrentQueue = DispatchQueue.global(qos: .default)
 //		let concurrentQueue = DispatchQueue(label: "imagesQueue", qos: .default, attributes: .concurrent)
@@ -102,6 +103,7 @@ extension ViewController {
 		}
 	}
 	
+	// Dispatch Queue - Serial
 	func usingSerialDispatchQueues() {
 		let serialQueue = DispatchQueue(label: "imagesQueue")
 		
