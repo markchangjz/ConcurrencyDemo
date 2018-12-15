@@ -53,6 +53,7 @@ class ViewController: UIViewController {
 //		original()
 		
 //		usingConcurrentDispatchQueues()
+		usingConcurrentDispatchQueues_WorkItem()
 //		usingSerialDispatchQueues()
 		
 //		usingConcurrentOperationQueues()
@@ -113,6 +114,64 @@ extension ViewController {
 			DispatchQueue.main.async {
 				self.imageView4.image = img4
 			}
+		}
+	}
+	
+	// Dispatch Queue - Concurrent (GCD) (WorkItem)
+	func usingConcurrentDispatchQueues_WorkItem() {
+		// 1
+		var img1: UIImage?
+		let workItem1 = DispatchWorkItem {
+			img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
+		}
+//		workItem1.perform()
+		
+		// 2
+		var img2: UIImage?
+		let workItem2 = DispatchWorkItem {
+			img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
+		}
+//		workItem2.perform()
+		
+		// 3
+		var img3: UIImage?
+		let workItem3 = DispatchWorkItem {
+			img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
+		}
+//		workItem3.perform()
+		
+		// 4
+		var img4: UIImage?
+		let workItem4 = DispatchWorkItem {
+			img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
+		}
+//		workItem4.perform()
+		
+		let concurrentQueue = DispatchQueue.global(qos: .default)
+		concurrentQueue.async(execute: workItem1)
+		concurrentQueue.async(execute: workItem2)
+		concurrentQueue.async(execute: workItem3)
+		concurrentQueue.async(execute: workItem4)
+		
+		/*
+		concurrentQueue.async(execute: workItem1)
+		
+		concurrentQueue.async {
+			workItem1.perform()
+		}
+		*/
+		
+		workItem1.notify(queue: DispatchQueue.main) {
+			self.imageView1.image = img1
+		}
+		workItem2.notify(queue: DispatchQueue.main) {
+			self.imageView2.image = img2
+		}
+		workItem3.notify(queue: DispatchQueue.main) {
+			self.imageView3.image = img3
+		}
+		workItem4.notify(queue: DispatchQueue.main) {
+			self.imageView4.image = img4
 		}
 	}
 	
