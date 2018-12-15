@@ -10,6 +10,9 @@
 iOS Concurrency_ Getting Started with NSOperation and Dispatch Queues _ AppCoda
 https://www.appcoda.com/ios-concurrency/
 
+Grand Central Dispatch (GCD) and Dispatch Queues in Swift 3 _ AppCoda
+https://www.appcoda.com/grand-central-dispatch/
+
 NSOperation - NSHipster
 https://nshipster.com/nsoperation/
 */
@@ -52,10 +55,12 @@ class ViewController: UIViewController {
 	@IBAction func didClickOnStart(_ sender: Any) {
 //		original()
 		
-//		usingConcurrentDispatchQueues()
-		usingConcurrentDispatchQueues_WorkItem()
+		// Grand Central Dispatch (GCD)
+		usingConcurrentDispatchQueues()
+//		usingConcurrentDispatchQueues_WorkItem()
 //		usingSerialDispatchQueues()
 		
+		// Operation Queue
 //		usingConcurrentOperationQueues()
 //		usingConcurrentOperationQueues2()
 //		usingSerialOperationQueues()
@@ -83,7 +88,7 @@ extension ViewController {
 		self.imageView4.image = img4
 	}
 	
-	// Dispatch Queue - Concurrent (GCD)
+	// MARK: - Dispatch Queue - Concurrent (GCD)
 	func usingConcurrentDispatchQueues() {
 		let concurrentQueue = DispatchQueue.global(qos: .default)
 //		let concurrentQueue = DispatchQueue(label: "imagesQueue", qos: .default, attributes: .concurrent)
@@ -117,7 +122,7 @@ extension ViewController {
 		}
 	}
 	
-	// Dispatch Queue - Concurrent (GCD) (WorkItem)
+	// MARK: - Dispatch Queue - Concurrent (GCD) (WorkItem)
 	func usingConcurrentDispatchQueues_WorkItem() {
 		// 1
 		var img1: UIImage?
@@ -175,7 +180,7 @@ extension ViewController {
 		}
 	}
 	
-	// Dispatch Queue - Serial (GCD)
+	// MARK: - Dispatch Queue - Serial (GCD)
 	func usingSerialDispatchQueues() {
 		let serialQueue = DispatchQueue(label: "imagesQueue")
 //		let serialQueue = DispatchQueue(label: "imagesQueue", qos: .default)
@@ -209,7 +214,7 @@ extension ViewController {
 		}
 	}
 	
-	// Operation Queue - Concurrent (high level abstraction)
+	// MARK: - Operation Queue - Concurrent (high level abstraction)
 	func usingConcurrentOperationQueues() {
 		let concurrentQueue = OperationQueue()
 		
@@ -242,7 +247,7 @@ extension ViewController {
 		}
 	}
 	
-	// Operation Queue - Concurrent (high level abstraction)
+	// MARK: - Operation Queue - Concurrent (high level abstraction)
 	func usingConcurrentOperationQueues2() {
 		let concurrentQueue = OperationQueue()
 		
@@ -299,7 +304,7 @@ extension ViewController {
 		concurrentQueue.addOperation(operation4)
 	}
 	
-	// Operation Queue - Serial (high level abstraction)
+	// MARK: - Operation Queue - Serial (high level abstraction)
 	func usingSerialOperationQueues() {
 		let serialQueue = OperationQueue()
 		
