@@ -43,8 +43,11 @@ class ViewController: UIViewController {
 
 	@IBAction func didClickOnStart(_ sender: Any) {
 //		original()
-		usingConcurrentDispatchQueues()
+		
+//		usingConcurrentDispatchQueues()
 //		usingSerialDispatchQueues()
+		
+		usingConcurrentOperationQueues()
 	}
 
 	@IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -131,6 +134,39 @@ extension ViewController {
 		serialQueue.async {
 			let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
 			DispatchQueue.main.async {
+				self.imageView4.image = img4
+			}
+		}
+	}
+	
+	// Operation Queue - Concurrent
+	func usingConcurrentOperationQueues() {
+		let concurrentQueue = OperationQueue()
+		
+		concurrentQueue.addOperation {
+			let img1 = Downloader.downloadImageWithURL(url: imageURLs[0])
+			OperationQueue.main.addOperation {
+				self.imageView1.image = img1
+			}
+		}
+		
+		concurrentQueue.addOperation {
+			let img2 = Downloader.downloadImageWithURL(url: imageURLs[1])
+			OperationQueue.main.addOperation {
+				self.imageView2.image = img2
+			}
+		}
+		
+		concurrentQueue.addOperation {
+			let img3 = Downloader.downloadImageWithURL(url: imageURLs[2])
+			OperationQueue.main.addOperation {
+				self.imageView3.image = img3
+			}
+		}
+		
+		concurrentQueue.addOperation {
+			let img4 = Downloader.downloadImageWithURL(url: imageURLs[3])
+			OperationQueue.main.addOperation {
 				self.imageView4.image = img4
 			}
 		}
