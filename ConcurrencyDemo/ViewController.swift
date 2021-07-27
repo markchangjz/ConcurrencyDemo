@@ -19,8 +19,8 @@ https://nshipster.com/nsoperation/
 
 import UIKit
 
-enum DataError: Error {
-    case empty
+enum FetchError: Error {
+    case badImage
     case unreachable
 }
 
@@ -45,7 +45,7 @@ class Downloader {
             if let data = data, let image = UIImage(data: data) {
                 completion(image, nil)
             } else {
-                completion(nil, DataError.empty)
+                completion(nil, FetchError.badImage)
             }
         }
         
@@ -56,7 +56,7 @@ class Downloader {
         
         let request = URLRequest(url: URL(string: url)!)
         let (data, response) = try await URLSession.shared.data(for: request)
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw DataError.unreachable }
+        guard (response as? HTTPURLResponse)?.statusCode == 200 else { throw FetchError.unreachable }
         
         if let image = UIImage(data: data) {
             return image
