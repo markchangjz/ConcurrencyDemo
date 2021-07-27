@@ -63,6 +63,38 @@ class Downloader {
         } else {
             return UIImage(named: "empty")!
         }
+        
+        
+        // https://wwdcbysundell.com/2021/wrapping-completion-handlers-into-async-apis/
+//        return try await withCheckedThrowingContinuation { continuation in
+//
+//            fetchImageData(url: url) { result in
+//                switch result {
+//                case .success(let value):
+//                    continuation.resume(returning: value)
+//                case .failure(let error):
+//                    continuation.resume(throwing: error)
+//                }
+//            }
+//        }
+    }
+    
+    class func fetchImageData(url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+        
+        let request = URLRequest(url: URL(string: url)!)
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let data = data, let image = UIImage(data: data) {
+                completion(.success(image))
+            } else {
+                completion(.success(UIImage(named: "empty")!))
+            }
+        }.resume()
     }
 }
 
@@ -158,6 +190,7 @@ extension ViewController {
         }
         
         
+        // 依序執行
 //        let img1 = try! await Downloader.fetchImage(url: imageURLs[0])
 //        let img2 = try! await Downloader.fetchImage(url: imageURLs[1])
 //        let img3 = try! await Downloader.fetchImage(url: imageURLs[2])
@@ -166,6 +199,7 @@ extension ViewController {
 //        show(photos)
         
         
+        // 並行執行
 //        async let img1 = try! Downloader.fetchImage(url: imageURLs[0])
 //        async let img2 = try! Downloader.fetchImage(url: imageURLs[1])
 //        async let img3 = try! Downloader.fetchImage(url: imageURLs[2])
