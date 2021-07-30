@@ -123,9 +123,7 @@ class ViewController: UIViewController {
 	@IBAction func didClickOnStart(_ sender: Any) {
 //        usingBlock()
         
-        Task {
-            usingAsync()
-        }
+        usingAsync()
 	}
 
 	@IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -182,30 +180,33 @@ extension ViewController {
     
     func usingAsync() {
 
-        Task {
+        async {
             self.imageView1.image = try? await Downloader.fetchImage(url: imageURLs[0])
             self.imageView2.image = try? await Downloader.fetchImage(url: imageURLs[1])
             self.imageView3.image = try? await Downloader.fetchImage(url: imageURLs[2])
             self.imageView4.image = try? await Downloader.fetchImage(url: imageURLs[3])
         }
         
-        
         // 依序執行
-//        let img1 = try! await Downloader.fetchImage(url: imageURLs[0])
-//        let img2 = try! await Downloader.fetchImage(url: imageURLs[1])
-//        let img3 = try! await Downloader.fetchImage(url: imageURLs[2])
-//        let img4 = try! await Downloader.fetchImage(url: imageURLs[3])
-//        let photos = [img1, img2, img3, img4]
-//        show(photos)
+//        Task {
+//            let img1 = try! await Downloader.fetchImage(url: imageURLs[0])
+//            let img2 = try! await Downloader.fetchImage(url: imageURLs[1])
+//            let img3 = try! await Downloader.fetchImage(url: imageURLs[2])
+//            let img4 = try! await Downloader.fetchImage(url: imageURLs[3])
+//            let photos = [img1, img2, img3, img4]
+//            show(photos)
+//        }
         
         
         // 並行執行
-//        async let img1 = try! Downloader.fetchImage(url: imageURLs[0])
-//        async let img2 = try! Downloader.fetchImage(url: imageURLs[1])
-//        async let img3 = try! Downloader.fetchImage(url: imageURLs[2])
-//        async let img4 = try! Downloader.fetchImage(url: imageURLs[3])
-//        let photos = await [img1, img2, img3, img4]
-//        show(photos)
+//        Task {
+//            async let img1 = try! Downloader.fetchImage(url: imageURLs[0])
+//            async let img2 = try! Downloader.fetchImage(url: imageURLs[1])
+//            async let img3 = try! Downloader.fetchImage(url: imageURLs[2])
+//            async let img4 = try! Downloader.fetchImage(url: imageURLs[3])
+//            let photos = await [img1, img2, img3, img4]
+//            show(photos)
+//        }
     }
     
     private func show(_ photos: [UIImage]) {
